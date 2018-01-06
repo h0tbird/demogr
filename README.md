@@ -32,9 +32,10 @@ usage: demogr [<flags>] <states>
 Retrieves demographic data for a specified set of U.S. states from a public API and outputs that data in the requested format.
 
 Flags:
-  --help           Show context-sensitive help (also try --help-long and --help-man).
-  --format="CSV"   Output-format parameter [CSV|averages]
-  --max-workers=5  Maximum number of concurrent workers.
+  --help                  Show context-sensitive help (also try --help-long and --help-man).
+  --format="CSV"          Output-format parameter [CSV|averages]
+  --max-workers=5         Maximum number of concurrent workers.
+  --data-version=jun2014  Specify the data version.
 
 Args:
   <states>  Comma delimited list of U.S. states.
@@ -46,7 +47,7 @@ Args:
 demogr --format CSV "Oklahoma,Indiana,New York,Rhode Island"
 ```
 
-##### Census data sample:
+##### Census data sample
 
 ```
 curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=json" | jq .
@@ -70,7 +71,7 @@ curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=
 }
 ```
 
-##### Demographic data sample:
+##### Demographic data sample
 
 ```
 curl -s "https://www.broadbandmap.gov/broadbandmap/demographic/jun2014/state/ids/40?format=json" | jq .

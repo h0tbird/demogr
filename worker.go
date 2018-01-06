@@ -76,7 +76,7 @@ func getStateData(fips string) (demographic, error) {
 	dmgr := demographic{}
 
 	// Send the request:
-	dat, err := url2json(apiBase + "/demographic/jun2014/state/ids/" + fips + "?format=json")
+	dat, err := url2json(apiBase + "/demographic/" + *flgDataVersion + "/state/ids/" + fips + "?format=json")
 	if err != nil {
 		return dmgr, err
 	}
