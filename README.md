@@ -3,7 +3,7 @@
 [![License Widget]][License] [![GoReportCard Widget]][GoReportCard] [![Travis Widget]][Travis]
 
 [License]: http://www.apache.org/licenses/LICENSE-2.0.txt
-[License Widget]: https://img.shields.io/badge/license-APACHE2-1eb0fc.svg<Paste>
+[License Widget]: https://img.shields.io/badge/license-APACHE2-1eb0fc.svg
 [GoReportCard]: https://goreportcard.com/report/h0tbird/demogr
 [GoReportCard Widget]: https://goreportcard.com/badge/h0tbird/demogr
 [Travis]: https://travis-ci.org/h0tbird/demogr
