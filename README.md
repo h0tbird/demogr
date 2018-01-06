@@ -45,3 +45,68 @@ Args:
 ```
 demogr --format CSV "Oklahoma,Indiana,New York,Rhode Island"
 ```
+
+##### Sample data:
+
+```
+curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=json" | jq '.'
+```
+
+```
+{
+  "status": "OK",
+  "responseTime": 31,
+  "message": [],
+  "Results": {
+    "state": [
+      {
+        "geographyType": "STATE2010",
+        "name": "Oklahoma",
+        "fips": "40",
+        "stateCode": "OK"
+      }
+    ]
+  }
+}
+```
+
+```
+curl -s "https://www.broadbandmap.gov/broadbandmap/demographic/jun2014/state/ids/40?format=json" | jq '.'
+```
+
+```
+{
+  "status": "OK",
+  "responseTime": 89,
+  "message": [],
+  "Results": [
+    {
+      "geographyId": "40",
+      "geographyName": "Oklahoma",
+      "landArea": 66071.25626824,
+      "population": 3884459,
+      "households": 1755452,
+      "raceWhite": 0.7766,
+      "raceBlack": 0.0661,
+      "raceHispanic": 0.0843,
+      "raceAsian": 0.0122,
+      "raceNativeAmerican": 0.0608,
+      "incomeBelowPoverty": 0.169,
+      "medianIncome": 47659.2346,
+      "incomeLessThan25": 0.2887,
+      "incomeBetween25to50": 0.2802,
+      "incomeBetween50to100": 0.2956,
+      "incomeBetween100to200": 0.1131,
+      "incomeGreater200": 0.0223,
+      "educationHighSchoolGraduate": 0.8175,
+      "educationBachelorOrGreater": 0.2165,
+      "ageUnder5": 0.0612,
+      "ageBetween5to19": 0.2265,
+      "ageBetween20to34": 0.2008,
+      "ageBetween35to59": 0.3089,
+      "ageGreaterThan60": 0.2026,
+      "myAreaIndicator": false
+    }
+  ]
+}
+```

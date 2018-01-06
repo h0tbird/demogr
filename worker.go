@@ -56,6 +56,15 @@ func getStateFIPS(state string) (int, error) {
 }
 
 //-----------------------------------------------------------------------------
+// getStateData:
+//-----------------------------------------------------------------------------
+
+func getStateData(fips int) ([]byte, error) {
+
+	return []byte{}, nil
+}
+
+//-----------------------------------------------------------------------------
 // worker:
 //-----------------------------------------------------------------------------
 
@@ -63,19 +72,24 @@ func worker(id int, jobs <-chan string, results chan<- stateData) {
 
 	// Variables:
 	var err error
-	data := stateData{}
+	state := stateData{}
 
 	// Job by job:
-	for state := range jobs {
+	for state.name = range jobs {
 
 		// Get the state's FIPS:
-		data.name = state
-		data.fips, err = getStateFIPS(state)
+		state.fips, err = getStateFIPS(state.name)
+		if err != nil {
+			panic(err)
+		}
+
+		// Get the state's data:
+		state.data, err = getStateData(state.fips)
 		if err != nil {
 			panic(err)
 		}
 
 		// Return:
-		results <- data
+		results <- state
 	}
 }
