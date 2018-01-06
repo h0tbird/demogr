@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 )
 
 //-----------------------------------------------------------------------------
@@ -23,35 +22,29 @@ const apiBase = "https://www.broadbandmap.gov/broadbandmap"
 // getStateFIPS:
 //-----------------------------------------------------------------------------
 
-func getStateFIPS(state string) (int, error) {
+func getStateFIPS(state string) (string, error) {
 
 	// Send the request:
 	resp, err := http.Get(apiBase + "/census/state/" + state + "?format=json")
 	if err != nil {
-		return -1, err
+		return "", err
 	}
 	defer resp.Body.Close()
 
 	// Read the response body:
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return -1, err
+		return "", err
 	}
 
 	// Decode the data:
 	var dat map[string]interface{}
 	if err := json.Unmarshal(body, &dat); err != nil {
-		return -1, err
+		return "", err
 	}
 
 	// Extract the FIPS id:
-	id := dat["Results"].(map[string]interface{})["state"].([]interface{})[0].(map[string]interface{})["fips"].(string)
-	fips, err := strconv.Atoi(id)
-	if err != nil {
-		return -1, err
-	}
-
-	// Return:
+	fips := dat["Results"].(map[string]interface{})["state"].([]interface{})[0].(map[string]interface{})["fips"].(string)
 	return fips, nil
 }
 
@@ -59,9 +52,29 @@ func getStateFIPS(state string) (int, error) {
 // getStateData:
 //-----------------------------------------------------------------------------
 
-func getStateData(fips int) ([]byte, error) {
+func getStateData(fips string) (demographic, error) {
 
-	return []byte{}, nil
+	// Send the request:
+	resp, err := http.Get(apiBase + "/demographic/jun2014/state/ids/" + fips + "?format=json")
+	if err != nil {
+		return demographic{}, err
+	}
+	defer resp.Body.Close()
+
+	// Read the response body:
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return demographic{}, err
+	}
+
+	// Decode the data:
+	var dat map[string]interface{}
+	if err := json.Unmarshal(body, &dat); err != nil {
+		return demographic{}, err
+	}
+
+	// TODO: Extract population, households, incomeBelowPoverty and medianIncome:
+	return demographic{}, nil
 }
 
 //-----------------------------------------------------------------------------
@@ -84,7 +97,7 @@ func worker(id int, jobs <-chan string, results chan<- stateData) {
 		}
 
 		// Get the state's data:
-		state.data, err = getStateData(state.fips)
+		state.demographic, err = getStateData(state.fips)
 		if err != nil {
 			panic(err)
 		}

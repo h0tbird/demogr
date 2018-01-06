@@ -18,10 +18,17 @@ import (
 // Typedefs:
 //-----------------------------------------------------------------------------
 
+type demographic struct {
+	population         uint
+	households         uint
+	incomeBelowPoverty float64
+	medianIncome       float64
+}
+
 type stateData struct {
 	name string
-	fips int
-	data []byte
+	fips string
+	demographic
 }
 
 type states map[string]stateData
