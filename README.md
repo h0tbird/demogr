@@ -49,10 +49,10 @@ demogr --format CSV "Oklahoma,Indiana,New York,Rhode Island"
 ##### Sample data:
 
 ```
-curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=json" | jq '.'
+curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=json" | jq .
 ```
 
-```
+```json
 {
   "status": "OK",
   "responseTime": 31,
@@ -71,10 +71,10 @@ curl -s "https://www.broadbandmap.gov/broadbandmap/census/state/Oklahoma?format=
 ```
 
 ```
-curl -s "https://www.broadbandmap.gov/broadbandmap/demographic/jun2014/state/ids/40?format=json" | jq '.'
+curl -s "https://www.broadbandmap.gov/broadbandmap/demographic/jun2014/state/ids/40?format=json" | jq .
 ```
 
-```
+```json
 {
   "status": "OK",
   "responseTime": 89,
