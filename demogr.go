@@ -19,8 +19,8 @@ import (
 //-----------------------------------------------------------------------------
 
 type demographic struct {
-	population         uint
-	households         uint
+	population         float64
+	households         float64
 	incomeBelowPoverty float64
 	medianIncome       float64
 }

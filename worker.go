@@ -54,27 +54,35 @@ func getStateFIPS(state string) (string, error) {
 
 func getStateData(fips string) (demographic, error) {
 
+	// Variables:
+	dmgr := demographic{}
+
 	// Send the request:
 	resp, err := http.Get(apiBase + "/demographic/jun2014/state/ids/" + fips + "?format=json")
 	if err != nil {
-		return demographic{}, err
+		return dmgr, err
 	}
 	defer resp.Body.Close()
 
 	// Read the response body:
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return demographic{}, err
+		return dmgr, err
 	}
 
 	// Decode the data:
 	var dat map[string]interface{}
 	if err := json.Unmarshal(body, &dat); err != nil {
-		return demographic{}, err
+		return dmgr, err
 	}
 
-	// TODO: Extract population, households, incomeBelowPoverty and medianIncome:
-	return demographic{}, nil
+	// Extract population, households, incomeBelowPoverty and medianIncome:
+	dmgr.population = dat["Results"].([]interface{})[0].(map[string]interface{})["population"].(float64)
+	dmgr.households = dat["Results"].([]interface{})[0].(map[string]interface{})["households"].(float64)
+	dmgr.incomeBelowPoverty = dat["Results"].([]interface{})[0].(map[string]interface{})["incomeBelowPoverty"].(float64)
+	dmgr.medianIncome = dat["Results"].([]interface{})[0].(map[string]interface{})["medianIncome"].(float64)
+
+	return dmgr, nil
 }
 
 //-----------------------------------------------------------------------------
