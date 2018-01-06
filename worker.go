@@ -19,27 +19,45 @@ import (
 const apiBase = "https://www.broadbandmap.gov/broadbandmap"
 
 //-----------------------------------------------------------------------------
-// getStateFIPS:
+// url2json:
 //-----------------------------------------------------------------------------
 
-func getStateFIPS(state string) (string, error) {
+func url2json(url string) (map[string]interface{}, error) {
+
+	// Variables:
+	var dat map[string]interface{}
 
 	// Send the request:
-	resp, err := http.Get(apiBase + "/census/state/" + state + "?format=json")
+	resp, err := http.Get(url)
 	if err != nil {
-		return "", err
+		return dat, err
 	}
 	defer resp.Body.Close()
 
 	// Read the response body:
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return dat, err
 	}
 
 	// Decode the data:
-	var dat map[string]interface{}
 	if err := json.Unmarshal(body, &dat); err != nil {
+		return dat, err
+	}
+
+	// Return:
+	return dat, nil
+}
+
+//-----------------------------------------------------------------------------
+// getStateFIPS:
+//-----------------------------------------------------------------------------
+
+func getStateFIPS(state string) (string, error) {
+
+	// Send the request:
+	dat, err := url2json(apiBase + "/census/state/" + state + "?format=json")
+	if err != nil {
 		return "", err
 	}
 
@@ -58,21 +76,8 @@ func getStateData(fips string) (demographic, error) {
 	dmgr := demographic{}
 
 	// Send the request:
-	resp, err := http.Get(apiBase + "/demographic/jun2014/state/ids/" + fips + "?format=json")
+	dat, err := url2json(apiBase + "/demographic/jun2014/state/ids/" + fips + "?format=json")
 	if err != nil {
-		return dmgr, err
-	}
-	defer resp.Body.Close()
-
-	// Read the response body:
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return dmgr, err
-	}
-
-	// Decode the data:
-	var dat map[string]interface{}
-	if err := json.Unmarshal(body, &dat); err != nil {
 		return dmgr, err
 	}
 
