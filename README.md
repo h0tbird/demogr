@@ -59,6 +59,10 @@ Oklahoma,3855947,1732748,0.169200,47429.411000
 Rhode Island,1051689,468983,0.140100,60172.335800
 ```
 
+##### Asciinema demo
+
+[![asciicast](https://asciinema.org/a/oGyYiDYxmKwYoUDjwkTqhqL4A.png)](https://asciinema.org/a/oGyYiDYxmKwYoUDjwkTqhqL4A)
+
 ##### Census data sample
 
 ```
