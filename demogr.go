@@ -106,11 +106,11 @@ func outputCSV(list states) {
 	sort.Strings(sortedKeys)
 	for _, v := range sortedKeys {
 		fmt.Printf("%s,%d,%d,%f,%f\n",
-			list[v].name,
-			uint(list[v].population),
-			uint(list[v].households),
-			list[v].incomeBelowPoverty,
-			list[v].medianIncome)
+			list[v].name,               // string
+			uint(list[v].population),   // uint
+			uint(list[v].households),   // uint
+			list[v].incomeBelowPoverty, // float64
+			list[v].medianIncome)       // float64
 	}
 }
 
