@@ -102,7 +102,7 @@ func outputCSV(list states) {
 		sortedKeys = append(sortedKeys, k)
 	}
 
-	// Sort and print:
+	// Sort and print to stdout:
 	sort.Strings(sortedKeys)
 	for _, v := range sortedKeys {
 		fmt.Printf("%s,%d,%d,%f,%f\n",
@@ -119,7 +119,17 @@ func outputCSV(list states) {
 //-----------------------------------------------------------------------------
 
 func outputAVG(list states) {
-	for k, v := range list {
-		fmt.Println(k, v)
+
+	// Variables:
+	var numerator float64
+	var denominator float64
+
+	// Do the math:
+	for _, v := range list {
+		numerator = numerator + v.population*v.incomeBelowPoverty
+		denominator = denominator + v.population
 	}
+
+	// Print to stdout:
+	fmt.Println(numerator / denominator)
 }

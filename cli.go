@@ -49,7 +49,7 @@ var (
 
 	// Flags:
 	flgFormat = app.Flag("format", "Output-format parameter [CSV|averages]").
-			Default("CSV").HintOptions("CSV", "averages").String()
+			Default("CSV").Enum("CSV", "averages")
 
 	flgMaxWorkers = app.Flag("max-workers", "Maximum number of concurrent workers.").
 			Default("5").Int()
