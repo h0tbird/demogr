@@ -9,6 +9,7 @@ import (
 	// Stdlib:
 	"fmt"
 	"os"
+	"sort"
 
 	// Community:
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -80,7 +81,44 @@ func main() {
 		list[res.name] = res
 	}
 
-	// Do something with the results:
+	// Output:
+	switch *flgFormat {
+	case "CSV":
+		outputCSV(list)
+	case "averages":
+		outputAVG(list)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// outputCSV:
+//-----------------------------------------------------------------------------
+
+func outputCSV(list states) {
+
+	// Keep track of keys in an array:
+	sortedKeys := make([]string, 0, len(list))
+	for k := range list {
+		sortedKeys = append(sortedKeys, k)
+	}
+
+	// Sort and print:
+	sort.Strings(sortedKeys)
+	for _, v := range sortedKeys {
+		fmt.Printf("%s,%d,%d,%f,%f\n",
+			list[v].name,
+			uint(list[v].population),
+			uint(list[v].households),
+			list[v].incomeBelowPoverty,
+			list[v].medianIncome)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// outputAVG:
+//-----------------------------------------------------------------------------
+
+func outputAVG(list states) {
 	for k, v := range list {
 		fmt.Println(k, v)
 	}

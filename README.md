@@ -47,6 +47,10 @@ Args:
 demogr --format CSV "Oklahoma,Indiana,New York,Rhode Island"
 ```
 
+```
+demogr --data-version dec2013 --format CSV --max-workers 2 "Oklahoma,Indiana,New York,Rhode Island"
+```
+
 ##### Census data sample
 
 ```
