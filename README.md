@@ -45,10 +45,18 @@ Args:
 
 ```
 demogr --format CSV "Oklahoma,Indiana,New York,Rhode Island"
+Indiana,6640448,2915239,0.154200,51519.390000
+New York,19569355,8337971,0.152400,65123.585700
+Oklahoma,3884459,1755452,0.169000,47659.234600
+Rhode Island,1050223,471217,0.140000,60530.681800
 ```
 
 ```
 demogr --data-version dec2013 --format CSV --max-workers 2 "Oklahoma,Indiana,New York,Rhode Island"
+Indiana,6606176,2884150,0.154400,51410.505000
+New York,19531372,8279920,0.152400,64766.918100
+Oklahoma,3855947,1732748,0.169200,47429.411000
+Rhode Island,1051689,468983,0.140100,60172.335800
 ```
 
 ##### Census data sample
