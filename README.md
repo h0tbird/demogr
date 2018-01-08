@@ -63,6 +63,13 @@ Rhode Island,1051689,468983,0.140100,60172.335800
 
 [![asciicast](https://asciinema.org/a/oGyYiDYxmKwYoUDjwkTqhqL4A.png)](https://asciinema.org/a/oGyYiDYxmKwYoUDjwkTqhqL4A)
 
+##### Assumptions
+
+* Requests return a small amount of data and pagination is not needed.
+* Fail fast: API error retries, exponential backoff and cirquit breakers are not implemented.
+* Defaults to `--format CSV --max-workers 5 --data-version jun2014`.
+* I am weighting the `incomeBelowPoverty` by the `population` in each state.
+
 ##### Census data sample
 
 ```
